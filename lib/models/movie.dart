@@ -15,7 +15,7 @@ class Movie {
     required this.voteAverage,
   });
 
-  // Méthode fromJson pour transformer le JSON en un objet Movie
+  // Depuis l'API JSON
   factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie(
       id: json['id'],
@@ -25,30 +25,30 @@ class Movie {
       releaseDate: json['release_date'] ?? '',
       voteAverage: (json['vote_average'] is int)
           ? (json['vote_average'] as int).toDouble()
-          : json['vote_average'] ?? 0.0,
+          : (json['vote_average'] ?? 0.0),
     );
   }
 
-  // Méthode fromMap corrigée
+  // Depuis la base SQLite (Map)
   static Movie fromMap(Map<String, dynamic> map) {
     return Movie(
       id: map['id'],
       title: map['title'],
       overview: map['overview'],
       posterPath: map['poster_path'],
-      releaseDate: map['releaseDate'],
+      releaseDate: map['release_date'],
       voteAverage: map['vote_average'],
     );
   }
 
-  // Méthode toMap pour transformer l'objet Movie en une Map
+  // Vers la base SQLite
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'title': title,
       'overview': overview,
       'poster_path': posterPath,
-      'releaseDate': releaseDate,
+      'release_date': releaseDate,
       'vote_average': voteAverage,
     };
   }
